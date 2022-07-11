@@ -1,0 +1,64 @@
+{% extends 'dash/base.html' %}
+{% block content %}
+      <!-- partial -->
+   
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-12 stretch-card">
+              <div class="card shadow">
+                <div class="card-body">
+                  <h4 class="card-title">Home-page Slider Customization Table</h4>
+                 
+                  <a href="{% url 'slider_elements' %}" class="btn btn-outline-success py-2 px-3">ADD NEW</a>
+                  <div class="table-responsive pt-3">
+                    <table id="myTable" class="table table-bordered text-center table-hover">
+                      <thead class="bg-gradient-light border-2 border-dark">
+                        <tr>
+                          <th>
+                            #
+                          </th>
+                          <th>
+                            Slider Image
+                          </th>
+                          <th>
+                            Slider Title
+                          </th>
+                          <th>
+                            Slider Link
+                          </th>
+                          <th>
+                            Actions
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody class="border-2 border-dark">
+                        {% for sd in slider_table %}
+                        <tr class="table-info">
+                          <td>
+                            {{sd.id}}
+                          </td>
+                          <td>
+                            <img src="/media/{{sd.slider_image}}" height="70px" width="70px">
+                          </td>
+                          <td>
+                            {{sd.slider_title}}
+                          </td>
+                          <td>
+                            {{sd.slider_link}}
+                          </td>
+                          <td>
+                            <a href="{% url 'ed_slider' sd.id %}" class="btn btn-outline-success py-2 px-3">Edit</a>
+                            <a href="{% url 'del_slider' sd.id %}" class="btn btn-outline-success  py-2 px-3">Delete</a>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock content %}
+        <!-- content-wrapper ends -->

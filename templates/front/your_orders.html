@@ -1,0 +1,89 @@
+{% extends "front/base.html" %}
+
+{% load static %}
+{% block content %}
+
+
+<section class="ftco-section">
+  <form action="" method="POST" class="billing-form">
+    {% csrf_token %}
+    <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-xl-7 ftco-animate">
+            
+            <h1 class="mb-4">Order Details</h1>
+            <div class="row align-items-end">
+              <div class="table-responsive pt-4">
+                <table id="myTable" class="table table-bordered text-center">
+                  <thead class="bg-gradient-danger border-2 border-dark">
+                    <tr>
+                      <th>
+                        #
+                      </th>
+                      <th>
+                        Category
+                      </th>
+                      <th>
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="border-2 border-dark">
+                    {% for ct in catg_table %}
+                    <tr class="table-info">
+                      <td>
+                        {{ct.id}}
+                      </td>
+                      <td>
+                        {{ct.name}}
+                      </td>
+                      <td>
+                        <a href="{% url 'edit_category' ct.id %}" class="btn btn-outline-success py-2 px-3">Edit</a>
+                        <a href="{% url 'del_category' ct.id %}" class="btn btn-outline-success  py-2 px-3">Delete</a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-5">
+            <div class="row mt-5 pt-3">
+              <div class="col-md-12 d-flex mb-5">
+                <div class="cart-detail cart-total p-3 p-md-4">
+                  <h3 class="billing-heading mb-4">Cart Total</h3>
+                  <p class="d-flex total-price">
+                    <span>Subtotal</span>
+                    <span class="total">₹20.60</span>
+                  </p>
+                  <p class="d-flex">
+                    <span>Delivery</span>
+                    <span>₹0.00</span>
+                  </p>r
+                  <p class="d-flex">
+                    <span>Discount</span>
+                    <span>₹3.00</span>
+                  </p>
+                  <hr />
+                  <p class="d-flex total-price">
+                    <span>Total</span>
+                    <span>₹17.60</span>
+                  </p>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          <!-- .col-md-8 -->
+        </div>
+      </div>
+  </form>
+  <!-- END -->
+</section>
+<!-- .section -->
+
+
+
+{% comment %} EXTRA JS SAME AS IN CART.HTML PAGE{% endcomment %}
+{% endblock content %}

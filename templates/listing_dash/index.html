@@ -1,0 +1,60 @@
+{% extends 'listing_dash/base.html' %}
+
+
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="row">
+    <div class="col-md-12 grid-margin">
+      <div class="d-flex justify-content-between flex-wrap">
+        <div class="d-flex align-items-end flex-wrap">
+          <div class="me-md-3 me-xl-5">
+            <h2 class="text-uppercase">Welcome back, {{d.name}}</h2>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-end flex-wrap">
+          <a href="{% url 'homepage' %}" target="_blank"><button class="btn btn-primary mt-2 mt-xl-0">View Website</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-10 grid-margin stretch-card">
+      <div class="card shadow py-5 bg-gradient-light border-2 border-dark">
+        <div class="card-body">
+          <p class="position-absolute top-50 start-50 translate-middle display-2">
+            Orders = {% if getord %} {{ getprd|length }} {% else %} 0 {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card shadow py-5 bg-gradient-light border-2 border-dark">
+        <div class="card-body">
+          <p class="position-absolute top-50 start-50 translate-middle display-4">
+            Return/RTO = {% if gcust %} {{ gcust|length }} {% else %} 0 {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card shadow py-5 bg-gradient-light border-2 border-dark">
+        <div class="card-body">
+          <p class="position-absolute top-50 start-50 translate-middle display-4">
+            Products = {% if getprd %} {{ getprd|length }} {% else %} 0 {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  {% endblock content %}

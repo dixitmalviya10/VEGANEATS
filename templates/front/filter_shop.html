@@ -1,0 +1,60 @@
+{% extends "front/base.html" %}
+
+{% load static %}
+{% block content %}
+
+
+
+    <div class="categories-filter">
+        <button class="btn-cat" data-cat-source="all">
+        All
+        </button>
+        <button class="btn-cat" data-cat-source="cat-1">
+        Category 1
+        </button>
+        <button class="btn-cat" data-cat-source="cat-2">
+        Category 2
+        </button>
+    </div>
+  
+  <div class="portfolio-block cat-1">
+    <h2 class="category-title">
+      Category 1
+    </h2>
+    <div class="items">
+      <div class="item">
+        <img src="https://picsum.photos/id/237/400/300" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/238/400/300" />
+      </div>
+    </div>
+  </div>
+  <div class="portfolio-block cat-2">
+    <h2 class="category-title">
+      Category 2
+    </h2>
+    <div class="items">
+      <div class="item">
+        <img src="https://picsum.photos/id/239/400/300" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/240/400/300" />
+      </div>
+    </div>
+  </div>
+
+<script>
+    $(document).on('click', '.btn-cat', function(e){
+        var $type = $(this).data("cat-source");
+        if($type == "all"){
+          $('.portfolio-block').fadeOut(0);
+          $('.portfolio-block').fadeIn(1000);
+        }else{
+          $('.portfolio-block').hide();
+          $('.'+$type + ".portfolio-block").fadeIn(1000);
+        }
+      })
+</script>
+
+  {% endblock content %}

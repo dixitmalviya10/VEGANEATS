@@ -1,0 +1,64 @@
+{% extends 'dash/base.html' %}
+{% block content %}
+      <!-- partial -->
+     
+<div class="content-wrapper">
+  <div class="row">
+    <div class="col-12 grid-margin">
+      <div class="card shadow">
+        <div class="card-body">
+          <h4 class="card-title">Horizontal Two column</h4>
+          <form class="form-sample" method='POST' action="" enctype="multipart/form-data">
+            {% csrf_token %}
+          
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group row">
+                
+                  <div class="col-sm-9">  
+
+                    <p>Upload Logo:</p>
+                    <p align="center">
+                      <label for="file" style="cursor: pointer;">{{add_sett.logo}}<br/><img id="output" src="media/{{logo_img.logo}}" width="200" height="200" /><br>Click Here</label>
+                    </p>
+
+                    <p>Mobile No:</p>
+                    <p class="mb-3">{{add_sett.mobile_no}}</p>
+
+                    <p>Email:</p>
+                    <p class="mb-3">{{add_sett.email}}</p>
+
+                    <p>Delivery Information:</p>
+                    <p class="mb-3">{{add_sett.delivery_info}}</p>
+                    
+
+                    <p>Logo Tagline:</p>
+                    <p class="mb-3">{{add_sett.logo_tagline}}</p>
+
+                    <p>Address:</p>
+                    <p class="mb-3">{{add_sett.address}}</p>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input type="submit" class="btn btn-outline-primary" value="submit">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var loadFile = function (event) {
+
+      var image = document.getElementById('output');
+
+      image.src = URL.createObjectURL(event.target.files[0]);
+
+
+  };
+</script>
+{% endblock content %}
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->

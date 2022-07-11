@@ -1,0 +1,276 @@
+{% extends "front/base.html" %}
+
+{% load static %}
+{% block content %}
+
+<div class="hero-wrap hero-bread" style="background-image: url('/static/front/images/bg_1.jpg');">
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-center justify-content-center">
+			<div class="col-md-9 ftco-animate text-center">
+				<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p>
+				<h1 class="mb-0 bread">My Cart</h1>
+			</div>
+		</div>
+	</div>
+</div>
+<form action="/checkout" method="post">
+	{% csrf_token %}
+<section class="ftco-section ftco-cart">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 ftco-animate">
+				<div class="cart-list">
+					<table class="table">
+						<thead class="thead-primary">
+							<tr class="text-center">
+								<th>&nbsp;</th>
+								<th>&nbsp;</th>
+								<th>Product name</th>
+								<th>Price</th>
+								<th>Quantity</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							{% if ct_data|length == 0 %}
+							<tr class="text-center">
+								<td>No Data</td>
+							</tr>
+							{% endif %}
+
+							{% for data in ct_data %}
+							{% for p_data in pro %}
+							{% if data.product_id == p_data.id %}
+
+							<tr class="text-center ">
+							
+								<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+								
+								<td class="image-prod">
+									<div class="img" style="background-image:url(/media/{{p_data.img}});"></div>
+								</td>
+
+								<td class="product-name">
+									<h3>{{p_data.name}} <input type="hidden" name="c_id" value='{{p_data.name}}'><input type="hidden" name="list_name" value='{{p_data.list_name}}'></h3>
+									<p>{{p_data.description|safe}}</p>
+								</td>
+
+								<td class="cart__price price">{{p_data.price}}</td>
+
+								<td class="quantity ">
+									<div class="input-group mb-3 pro-qty">
+										<span class="input-group-btn mr-2">
+											<button type="button" class="dec quantity-left-minus btn" data-type="minus"
+												data-field="">
+												<i class="ion-ios-remove"></i>
+											</button>
+										</span>
+										<input type="text" name="quantity"
+											class="qty quantityInp form-control input-number" value="1" min="1"
+											max="100">
+										<span class="input-group-btn ml-2">
+											<button type="button" class="inc quantity-right-plus btn" data-type="plus"
+												data-field="">
+												<i class="ion-ios-add"></i>
+											</button>
+										</span>
+									</div>
+								</td>
+
+								<td class=" cart__total">₹0</td>
+							</tr>
+							{% endif %}
+							{% endfor %}
+							{% endfor %}
+
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-end">
+			<!-- <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
+				<div class="cart-total mb-3">
+					<h3>Coupon Code</h3>
+					<p>Enter your coupon code if you have one</p>
+					<form action="#" class="info">
+						<div class="form-group">
+							<label for="">Coupon code</label>
+							<input type="text" class="form-control text-left px-3" placeholder="">
+						</div>
+					</form>
+				</div>
+				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
+			</div> -->
+			
+			<div class="col-lg-6 mt-5 cart-wrap ftco-animate">
+				<div class="cart-total mb-3">
+					<h3>Cart Totals</h3>
+
+					<hr>
+					<p class="d-flex total-price">
+						<span>Total</span>
+						<span class="total"></span>
+						<input type="hidden" name="total" value="0" class="total">	
+					</p>
+				</div>
+				<p><input type="submit" class="btn btn-primary py-3 px-4" value="Checkout" /></p>
+			
+			</div>
+		</div>
+	</div>
+</section>
+</form>
+<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+	<div class="container py-4">
+		<div class="row d-flex justify-content-center py-5">
+			<div class="col-md-6">
+				<h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
+				<span>Get e-mail updates about our latest shops and special offers</span>
+			</div>
+			<div class="col-md-6 d-flex align-items-center">
+				<form action="#" class="subscribe-form">
+					<div class="form-group d-flex">
+						<input type="text" class="form-control" placeholder="Enter email address">
+						<input type="submit" value="Subscribe" class="submit px-3">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+{% comment %} EXTRA JS {% endcomment %}
+<script>
+	$(document).ready(function () {
+
+		var quantitiy = 0;
+		$('.quantity-right-plus').click(function (e) {
+
+			// Stop acting like a button
+			e.preventDefault();
+			// Get the field name
+			qtyval = $(this).parents("tr").find(".qty");
+			var quantity = parseInt(qtyval.val());
+
+			// If is not undefined
+
+			qtyval.val(quantity + 1);
+
+
+			// Increment
+
+		});
+
+		$('.quantity-left-minus').click(function (e) {
+			// Stop acting like a button
+			e.preventDefault();
+			// Get the field name
+			qtyval = $(this).parents("tr").find(".qty");
+			var quantity = parseInt(qtyval.val());
+
+			// If is not undefined
+
+			// Increment
+			if (quantity > 0) {
+				qtyval.val(quantity - 1);
+			}
+		});
+
+	});
+</script>
+
+<script>
+	$(document).ready(function () {
+		$(".inc ").click(function () {
+			qty = $(this).parents("tr").find(".qty");
+			cart_price = $(this).parents("tr").find(".cart__price");
+			cart_total = $(this).parents("tr").find(".cart__total");
+			qty_val = parseInt(qty.val());
+			cart_total.html(qty_val * cart_price.html())
+		});
+	});
+</script>
+<script>
+	$(document).ready(function () {
+		$(".dec").click(function () {
+			qty = $(this).parents("tr").find(".qty");
+			cart_price = $(this).parents("tr").find(".cart__price");
+			cart_total = $(this).parents("tr").find(".cart__total");
+			qty_val = parseInt(qty.val());
+			cart_total.html(qty_val * cart_price.html())
+		});
+	});
+</script>
+
+<script>
+
+	$(document).ready(function () {
+		$(".inc").click(function () {
+			var cart_total = document.getElementsByClassName('cart__total');
+			var total = document.getElementsByClassName('total')[0];
+			var length = cart_total.length;
+
+			result = 0;
+			for (let i = 0; i < cart_total.length; i++) {
+				const value = cart_total[i].innerHTML;
+				result = parseFloat(result) + parseFloat(value);
+			}
+			total.innerHTML = "<span> $ " + result + " </span>";
+			$("input.total").val(result)
+		})
+	})
+
+
+	$(document).ready(function () {
+		$(".dec").click(function () {
+			var cart_total = document.getElementsByClassName('cart__total');
+			var total = document.getElementsByClassName('total')[0];
+			var length = cart_total.length;
+			result = 0;
+			for (let i = 0; i < cart_total.length; i++) {
+				const value = cart_total[i].innerHTML;
+				result = parseFloat(result) + parseFloat(value);
+			}
+			total.innerHTML = "<span> $ " + result + " </span>";
+			$("input.total").val(result)
+		})
+	}) 
+</script>
+<script>
+	$(document).ready(function () {
+		var price = document.getElementsByClassName("cart__price");
+		var price_value = document.getElementsByClassName("qty");
+		var cart_total = document.getElementsByClassName('cart__total');
+		let length = price.length;
+		for (let i = 0; i < length; i++) {
+			const total_value = parseFloat(price_value[i].value) * parseFloat(price[i].innerHTML);
+			cart_total[i].innerHTML = total_value;
+		}
+	})
+</script>
+
+<script>
+	$(document).ready(function () {
+		var cart_total = document.getElementsByClassName('cart__total');
+		var total = document.getElementsByClassName('total')[0];
+		var length = cart_total.length;
+		result = 0;
+		for (let i = 0; i < cart_total.length; i++) {
+			const value = cart_total[i].innerHTML;
+			result = parseFloat(result) + parseFloat(value);
+		}
+		total.innerHTML = "<span> $ " + result + " </span>";
+		$("input.total").val(result)
+	})
+</script>
+
+
+
+
+
+{% endblock content %}

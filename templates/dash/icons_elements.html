@@ -1,0 +1,31 @@
+{% extends 'dash/base.html' %}
+{% block content %}
+      <!-- partial -->
+     
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="card shadow">
+                <div class="card-body">
+                  <h4 class="card-title">Horizontal Two column</h4>
+                  <form class="form-sample" method='POST'>
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group row">
+                          <div class="col-sm-9">
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <input type="submit" class="btn btn-outline-primary" value="submit">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock content %}
+
